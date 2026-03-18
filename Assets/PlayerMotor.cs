@@ -17,8 +17,14 @@ public class PlayerMotor : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
+    // Fixedupdate 40/sec
     void FixedUpdate()
+    {
+        PlayerMovmentHandle();
+        PlayerMovmentStopping();
+    }
+
+    private void PlayerMovmentHandle()
     {
         if (direction.x != 0)
         {
@@ -28,6 +34,10 @@ public class PlayerMotor : MonoBehaviour
         {
             rigidbody2D.AddForce(new Vector2(-rigidbody2D.linearVelocityX * stoppingForce, 0));
         }
+    }
+
+    private void PlayerMovmentStopping()
+    {
         if (rigidbody2D.linearVelocityX >= maxSpeed)
         {
             rigidbody2D.linearVelocityX = maxSpeed;
@@ -36,7 +46,6 @@ public class PlayerMotor : MonoBehaviour
         {
             rigidbody2D.linearVelocityX = -maxSpeed;
         }
-        //transform.position += new Vector3(direction.x, direction.y, 0) * Time.deltaTime * speed;
     }
 
     void OnJump()
@@ -55,8 +64,6 @@ public class PlayerMotor : MonoBehaviour
     }
     void OnMove(InputValue value)
     {
-        //Debug.Log("move");
-        //Debug.Log(value.Get<Vector2>());
-        direction = value.Get<Vector2>(); 
+        direction = value.Get<Vector2>();
     }
 }
