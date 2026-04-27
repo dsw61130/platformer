@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthComponent : MonoBehaviour
 {
@@ -34,10 +35,10 @@ public class HealthComponent : MonoBehaviour
             OnHealthChanged?.Invoke(health, damage);
             if (health <= 0)
             {
-                Destroy(this.gameObject);
+                SceneManager.LoadScene("EndGameUI");
             }
             invincibility = true;
-            StartCoroutine(ResetInvincibility(3));
+            StartCoroutine(ResetInvincibility(1));
         }
     }
     IEnumerator ResetInvincibility(float resetTime)
